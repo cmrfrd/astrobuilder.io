@@ -1,0 +1,238 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #1a1a1a;
+    position: relative;
+}
+
+.clear-all-btn, .export-image-btn, .toggle-notes-btn {
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.2s;
+    width: 100px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clear-all-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #f44336;
+}
+
+.toggle-notes-btn {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    background-color: #2196F3;
+}
+
+.button-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.export-image-btn {
+    position: fixed;
+    top: 120px;
+    right: 20px;
+    background-color: #4CAF50;
+}
+
+.kofi-button {
+    display: flex;
+    align-items: center;
+}
+
+.clear-all-btn:hover {
+    background-color: #d32f2f;
+}
+
+.toggle-notes-btn:hover {
+    background-color: #0b7dda;
+}
+
+.export-image-btn:hover {
+    background-color: #3e8e41;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 1400px;
+    padding: 20px;
+}
+
+.sidebar {
+    width: 250px;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.sidebar h2 {
+    color: black;
+    margin-bottom: 15px;
+}
+
+.background-selector {
+    margin-bottom: 20px;
+}
+
+#backgroundSelect {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: black;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24"><path fill="black" d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
+.planet-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.draggable {
+    width: 50px;
+    cursor: grab;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.draggable:hover {
+    opacity: 1;
+}
+
+.main-content {
+    flex: 1;
+    position: relative;
+    min-height: 600px;
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.app-title {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: black;
+    font-size: 28px;
+    font-weight: 600;
+    z-index: 10;
+    font-family: 'Arial', sans-serif;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    object-fit: contain;
+}
+
+.planet-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+}
+
+.notes-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    z-index: 5;
+}
+
+#notesArea {
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: rgba(200, 200, 200, 0.7); /* Lighter grey with transparency */
+    color: black; /* Changed to black for better contrast on light background */
+    font-family: Arial, sans-serif;
+    resize: none;
+    font-size: 14px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.footer-credit {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: black;
+    font-size: 14px;
+    z-index: 10;
+    font-family: 'Arial', sans-serif;
+    /*text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);*/
+}
+
+.footer-credit a {
+    color: #4CAF50;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-credit a:hover {
+    color: #8bc34a;
+    text-decoration: underline;
+}
+
+.dragged-planet {
+    position: absolute;
+    cursor: move;
+    transition: transform 0.2s;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}

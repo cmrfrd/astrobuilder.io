@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astro Builder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <button id="clearAllBtn" class="clear-all-btn">Clear</button>
+    <button id="toggleNotesBtn" class="toggle-notes-btn">Notes</button>
+    <button id="exportImageBtn" class="export-image-btn">Export</button>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Ascendant</h2>
+            <div class="background-selector">
+                <select id="backgroundSelect">
+                    <option value="Backgrounds/Empty.png">Empty</option>
+                    <option value="Backgrounds/Aries.png">Aries</option>
+                    <option value="Backgrounds/Taurus.png">Taurus</option>
+                    <option value="Backgrounds/Gemini.png">Gemini</option>
+                    <option value="Backgrounds/Cancer.png">Cancer</option>
+                    <option value="Backgrounds/Leo.png">Leo</option>
+                    <option value="Backgrounds/Virgo.png">Virgo</option>
+                    <option value="Backgrounds/Libra.png">Libra</option>
+                    <option value="Backgrounds/Scorpio.png">Scorpio</option>
+                    <option value="Backgrounds/Sagittarius.png">Sagittarius</option>
+                    <option value="Backgrounds/Capricorn.png">Capricorn</option>
+                    <option value="Backgrounds/Aquarius.png">Aquarius</option>
+                    <option value="Backgrounds/Pisces.png">Pisces</option>
+                </select>
+            </div>
+            <h2>Planets</h2>
+            <div class="planet-selector">
+                <img src="Planets/Sun.png" alt="Sun" class="draggable" draggable="true">
+                <img src="Planets/Moon.png" alt="Moon" class="draggable" draggable="true">
+                <img src="Planets/Mercury.png" alt="Mercury" class="draggable" draggable="true">
+                <img src="Planets/Venus.png" alt="Venus" class="draggable" draggable="true">
+                <img src="Planets/Mars.png" alt="Mars" class="draggable" draggable="true">
+                <img src="Planets/Jupiter.png" alt="Jupiter" class="draggable" draggable="true">
+                <img src="Planets/Saturn.png" alt="Saturn" class="draggable" draggable="true">
+                <img src="Planets/Uranus.png" alt="Uranus" class="draggable" draggable="true">
+                <img src="Planets/Neptune.png" alt="Neptune" class="draggable" draggable="true">
+                <img src="Planets/Pluto.png" alt="Pluto" class="draggable" draggable="true">
+                <img src="Planets/North Node.png" alt="North Node" class="draggable" draggable="true">
+                <img src="Planets/Ascendant.png" alt="Ascendant" class="draggable" draggable="true">
+            </div>
+        </div>
+        <div class="main-content">
+            <h1 class="app-title">AstroBuilder.io</h1>
+            <div id="background" class="background"></div>
+            <div id="planetContainer" class="planet-container"></div>
+            <div class="notes-container">
+                <textarea id="notesArea" placeholder="Enter your notes here..."></textarea>
+            </div>
+            <div class="footer-credit">Built with ❤️ by <a href="https://www.astrowithelsa.com/" target="_blank">Elsa</a> & Eden✨</div>
+        </div>
+    </div>
+    <div class="button-container">
+        <div class="kofi-button">
+            <a
+                href="https://ko-fi.com/G2G7OMYC9"
+                target="_blank"
+                rel="noreferrer"
+            >
+                <img
+                    height="36"
+                    class="border-0 h-auto"
+                    src="https://storage.ko-fi.com/cdn/kofi2.png?v=3"
+                    alt="Buy Me a Coffee at ko-fi.com"
+                />
+            </a>
+        </div>
+    </div>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="script.js"></script>
+    <!-- Inspired by the love of my life, the silliest goon, the one and only, 5-ever. -->
+</body>
+</html>
