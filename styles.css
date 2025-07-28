@@ -1,3 +1,51 @@
+/* Add these styles to prevent drag artifacts and focus outlines */
+*:focus {
+    outline: none !important;
+}
+
+img {
+    -webkit-user-drag: element;
+    -khtml-user-drag: element;
+    -moz-user-drag: element;
+    -o-user-drag: element;
+    user-drag: element;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+/* Prevent any drag feedback or ghost images */
+.draggable, .dragged-planet {
+    -webkit-user-drag: element;
+    -khtml-user-drag: element;
+    -moz-user-drag: element;
+    -o-user-drag: element;
+    user-drag: element;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    outline: none !important;
+    border: none !important;
+}
+
+.draggable:focus, .dragged-planet:focus {
+    outline: none !important;
+    border: none !important;
+}
+
+/* Remove any default browser drag styling */
+.draggable::-moz-selection, .dragged-planet::-moz-selection {
+    background: transparent;
+}
+
+.draggable::selection, .dragged-planet::selection {
+    background: transparent;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -235,4 +283,35 @@ body {
     width: 50px;
     height: 50px;
     object-fit: contain;
+    outline: none !important;
+    border: none !important;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    pointer-events: auto;
+}
+
+.dragged-planet:focus {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.dragged-planet:active {
+    outline: none !important;
+    border: none !important;
+}
+
+/* Prevent any selection highlighting on all draggable elements */
+.draggable, .dragged-planet {
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Additional cleanup for webkit browsers */
+.draggable::-webkit-drag-shadow, .dragged-planet::-webkit-drag-shadow {
+    display: none;
 }

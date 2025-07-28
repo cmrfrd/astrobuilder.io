@@ -23,8 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         backgroundDiv.style.backgroundImage = `url(${e.target.value})`;
     });
 
-    // Track active planets and dragging state
-    const activePlanets = new Set();
+    // Track dragging state
     let isDragging = false;
     let draggedPlanet = null;
 
@@ -50,9 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         // If we're dropping a planet from the container to the sidebar, remove it
         if (draggedPlanet && draggedPlanet.parentNode === planetContainer) {
-            const planetSrc = draggedPlanet.src;
             draggedPlanet.remove();
-            activePlanets.delete(planetSrc);
         }
         draggedPlanet = null;
     });
@@ -61,11 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const planetSrc = e.dataTransfer.getData('text/plain');
         
-        // Only create new planets from the selector
-        if (activePlanets.has(planetSrc)) {
-            return; // Don't create a duplicate
-        }
-
+        // Create new planet - no duplicate checking, unlimited placement allowed
         const newPlanet = document.createElement('img');
         newPlanet.src = planetSrc;
         newPlanet.className = 'dragged-planet';
@@ -79,25 +72,30 @@ document.addEventListener('DOMContentLoaded', () => {
         newPlanet.style.left = `${x}px`;
         newPlanet.style.top = `${y}px`;
         
-        activePlanets.add(planetSrc);
-
         // Handle dragging of placed planets
         newPlanet.addEventListener('mousedown', (e) => {
             if (e.button !== 0) return; // Only left mouse button
             
+            e.preventDefault(); // Prevent default drag behavior
+            
             const planet = e.target;
             planet.style.cursor = 'grabbing';
+            planet.style.zIndex = '1000'; // Bring to front while dragging
             isDragging = false;
             
             const startX = e.clientX;
             const startY = e.clientY;
             
             const move = (e) => {
+                e.preventDefault(); // Prevent default behavior
+                
                 // Only consider it a drag after moving a bit
                 if (!isDragging && 
                     (Math.abs(e.clientX - startX) > 5 || 
                      Math.abs(e.clientY - startY) > 5)) {
                     isDragging = true;
+                    // Disable native drag while mouse dragging
+                    planet.draggable = false;
                 }
                 
                 if (isDragging) {
@@ -110,10 +108,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             };
             
-            const up = () => {
+            const up = (e) => {
+                e.preventDefault(); // Prevent default behavior
                 document.removeEventListener('mousemove', move);
                 document.removeEventListener('mouseup', up);
                 planet.style.cursor = 'move';
+                planet.style.zIndex = 'auto'; // Reset z-index
+                // Re-enable native drag for removal functionality
+                planet.draggable = true;
                 isDragging = false;
             };
             
@@ -121,9 +123,23 @@ document.addEventListener('DOMContentLoaded', () => {
             document.addEventListener('mouseup', up);
         });
 
-        // Handle drag start for removal
+        // Handle drag start for removal - with additional cleanup
         newPlanet.addEventListener('dragstart', (e) => {
             draggedPlanet = e.target;
+            // Set a transparent drag image to prevent visual artifacts
+            const emptyImg = new Image();
+            emptyImg.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';
+            e.dataTransfer.setDragImage(emptyImg, 0, 0);
+        });
+
+        // Prevent context menu on planets to avoid interference
+        newPlanet.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+        });
+
+        // Prevent text selection on planets
+        newPlanet.addEventListener('selectstart', (e) => {
+            e.preventDefault();
         });
 
         planetContainer.appendChild(newPlanet);
@@ -133,9 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
     clearAllBtn.addEventListener('click', () => {
         // Clear all planets
         planetContainer.innerHTML = '';
-        
-        // Reset the activePlanets set
-        activePlanets.clear();
         
         // Reset background to Empty
         backgroundSelect.value = 'Backgrounds/Empty.png';
