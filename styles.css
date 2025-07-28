@@ -1,236 +1,3 @@
-/* Mobile touch optimization */
-@media (max-width: 768px) {
-    body {
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .container {
-        flex-direction: column;
-        padding: 5px;
-        height: 100vh;
-        max-height: 100vh;
-        overflow: hidden;
-        flex: 1;
-        display: flex;
-    }
-    
-    .main-content {
-        order: 1;
-        flex: 1;
-        min-height: 0; /* Allow flexbox to shrink */
-        margin-bottom: 5px;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    .sidebar {
-        width: 100% !important;
-        order: 2;
-        padding: 8px !important;
-        background: white;
-        border-radius: 8px;
-        backdrop-filter: blur(10px);
-        flex-shrink: 0; /* Don't shrink the sidebar */
-        max-height: 160px !important; /* Increased for Ascendant + Planets rows */
-        overflow: visible;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 4px !important; /* Reduced gap for tighter spacing */
-    }
-    
-    .sidebar h2 {
-        font-size: 12px !important;
-        margin-bottom: 3px !important; /* Reduced margin */
-        text-align: center;
-        color: black;
-        order: inherit !important; /* Maintain natural HTML order */
-    }
-    
-    .sidebar h2:first-child {
-        display: block !important; /* Show "Ascendant" heading */
-        order: 1 !important;
-    }
-    
-    .sidebar h2:nth-child(3) {
-        order: 3 !important; /* "Planets" heading after dropdown */
-    }
-    
-    /* Ascendant dropdown - should appear after Ascendant heading */
-    .sidebar .background-selector {
-        position: relative !important; /* Keep in normal flow */
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        background: transparent !important;
-        border: none !important;
-        display: flex !important;
-        justify-content: center !important; /* Center the dropdown */
-        order: 2 !important; /* After Ascendant heading */
-    }
-    
-    .sidebar .background-selector::before {
-        display: none !important; /* Remove pseudo-element label */
-    }
-    
-    .sidebar .background-selector #backgroundSelect {
-        width: 100px !important;
-        height: 30px !important;
-        padding: 2px !important;
-        font-size: 10px !important;
-        border-radius: 5px !important;
-        background-color: #2196F3 !important;
-        color: white !important;
-        border: none !important;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3) !important;
-        -webkit-appearance: none !important;
-        -moz-appearance: none !important;
-        appearance: none !important;
-    }
-    
-    /* Planets section - should appear after Planets heading */
-    .sidebar .planet-selector {
-        display: flex !important;
-        flex-direction: row !important;
-        flex-wrap: wrap !important; /* Allow wrapping to create two rows */
-        gap: 1px !important;
-        justify-content: flex-start !important;
-        align-items: flex-start !important;
-        overflow: visible !important; /* Remove overflow since we're wrapping */
-        padding: 2px 0 !important;
-        width: 100% !important;
-        min-height: 70px !important; /* Increased for two rows */
-        max-height: 80px !important; /* Increased for two rows */
-        order: 4 !important; /* After Planets heading */
-    }
-    
-    /* Hide scrollbar for webkit browsers */
-    .sidebar .planet-selector::-webkit-scrollbar {
-        display: none !important;
-        width: 0 !important;
-        height: 0 !important;
-    }
-    
-    /* First 7 planets (Sun through Saturn) - Row 1 */
-    .sidebar .planet-selector .draggable:nth-child(-n+7) {
-        width: 14.2% !important; /* 100% / 7 planets ≈ 14.2% */
-        height: 28px !important;
-        min-width: 20px !important;
-        max-width: 30px !important;
-        min-height: 28px !important;
-        flex-shrink: 0 !important;
-        flex-grow: 0 !important;
-        opacity: 0.9 !important;
-        transition: opacity 0.2s, transform 0.1s !important;
-        cursor: grab !important;
-        margin: 0 !important;
-        object-fit: contain !important;
-    }
-    
-    /* Remaining 5 planets (Uranus through Ascendant) - Row 2 */
-    .sidebar .planet-selector .draggable:nth-child(n+8) {
-        width: 19.8% !important; /* 100% / 5 planets ≈ 19.8% */
-        height: 28px !important;
-        min-width: 20px !important;
-        max-width: 35px !important;
-        min-height: 28px !important;
-        flex-shrink: 0 !important;
-        flex-grow: 0 !important;
-        opacity: 0.9 !important;
-        transition: opacity 0.2s, transform 0.1s !important;
-        cursor: grab !important;
-        margin: 0 !important;
-        object-fit: contain !important;
-    }
-    
-    .sidebar .planet-selector .draggable:active {
-        transform: scale(1.05) !important;
-        opacity: 1 !important;
-    }
-    
-    .dragged-planet {
-        width: 28px !important; /* Match the smaller size */
-        height: 28px !important;
-    }
-    
-    .planet-container, .main-content {
-        touch-action: none; /* Disable browser touch gestures */
-    }
-    
-    /* Compact button layout for mobile */
-    .clear-all-btn, .export-image-btn, .toggle-notes-btn {
-        width: 50px !important;
-        height: 30px !important;
-        font-size: 11px !important;
-        padding: 2px !important;
-    }
-    
-    .clear-all-btn {
-        top: 5px !important;
-        right: 5px !important;
-    }
-    
-    .toggle-notes-btn {
-        top: 40px !important;
-        right: 5px !important;
-    }
-    
-    .export-image-btn {
-        top: 75px !important;
-        right: 5px !important;
-    }
-    
-    /* Optimize notes for mobile */
-    .notes-container {
-        width: 220px !important;
-        max-width: 85vw !important;
-    }
-    
-    #notesArea {
-        height: 80px !important;
-        font-size: 11px !important;
-    }
-    
-    /* Compact app title */
-    .app-title {
-        font-size: 18px !important;
-        top: 8px !important;
-        font-weight: bold !important;
-        -webkit-text-stroke: 0.5px white !important;
-        text-stroke: 0.5px white !important;
-    }
-    
-    /* Compact footer */
-    .footer-credit {
-        font-size: 10px !important;
-        bottom: 8px !important;
-        color: #666666 !important; /* Medium grey for visibility on light and dark backgrounds */
-    }
-    
-    /* Reposition kofi button for mobile */
-    .button-container {
-        position: fixed !important;
-        top: 110px !important;
-        right: 5px !important;
-        bottom: auto !important;
-        z-index: 1000 !important;
-        gap: 5px !important;
-    }
-    
-    .kofi-button {
-        display: flex !important;
-        align-items: center !important;
-    }
-    
-    .kofi-button img {
-        height: 25px !important;
-        width: auto !important;
-    }
-}
-
 /* Desktop and general styles */
 * {
     margin: 0;
@@ -240,11 +7,14 @@
 
 body {
     font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* Prevent any scrolling */
     background-color: #1a1a1a;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .clear-all-btn, .export-image-btn, .toggle-notes-btn {
@@ -316,12 +86,18 @@ body {
 .container {
     display: flex;
     width: 100%;
-    max-width: 1400px;
+    max-width: 100vw;
+    height: 100vh;
     padding: 20px;
+    overflow: hidden; /* Prevent overflow */
+    box-sizing: border-box;
 }
 
 .sidebar {
     width: 250px;
+    min-width: 250px;
+    max-width: 250px;
+    height: 100%;
     padding: 20px;
     background: white;
     border-radius: 10px;
@@ -329,6 +105,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px; /* Clear separation between sections */
+    overflow: hidden; /* Prevent sidebar overflow */
+    box-sizing: border-box;
 }
 
 .sidebar h2 {
@@ -360,6 +138,9 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    flex: 1;
+    overflow-y: auto; /* Allow scrolling within planet selector if needed */
+    max-height: calc(100% - 120px); /* Reserve space for headings and background selector */
 }
 
 .draggable {
@@ -376,10 +157,11 @@ body {
 .main-content {
     flex: 1;
     position: relative;
-    min-height: 600px;
+    height: 100%;
     background: rgba(0, 0, 0, 0.9);
     border-radius: 10px;
     overflow: hidden;
+    margin-left: 20px;
 }
 
 .app-title {
@@ -472,6 +254,198 @@ body {
     width: 50px;
     height: 50px;
     object-fit: contain;
+}
+
+/* Mobile touch optimization - no scrollbars */
+@media (max-width: 768px) {
+    body {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden; /* Prevent scrolling */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .container {
+        flex-direction: column;
+        width: 100vw;
+        height: 100vh;
+        padding: 5px;
+        overflow: hidden;
+        box-sizing: border-box;
+        display: flex;
+    }
+    
+    .main-content {
+        order: 1;
+        flex: 1;
+        width: 100%;
+        margin-bottom: 5px;
+        overflow: hidden;
+        margin-left: 0;
+    }
+    
+    .sidebar {
+        width: 100% !important;
+        min-width: 100% !important;
+        max-width: 100% !important;
+        height: 140px !important; /* Fixed height for mobile */
+        order: 2;
+        padding: 8px !important;
+        background: white;
+        border-radius: 8px;
+        backdrop-filter: blur(10px);
+        flex-shrink: 0;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 4px !important;
+        box-sizing: border-box;
+    }
+    
+    .sidebar h2 {
+        font-size: 12px !important;
+        margin-bottom: 3px !important;
+        text-align: center;
+        color: black;
+    }
+    
+    .sidebar h2:first-child {
+        order: 1;
+    }
+    
+    .sidebar h2:nth-child(3) {
+        order: 3;
+    }
+    
+    .sidebar .background-selector {
+        order: 2;
+        display: flex !important;
+        justify-content: center !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .sidebar .background-selector #backgroundSelect {
+        width: 100px !important;
+        height: 25px !important;
+        padding: 2px !important;
+        font-size: 10px !important;
+        border-radius: 5px !important;
+        background-color: #2196F3 !important;
+        color: white !important;
+        border: none !important;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3) !important;
+        -webkit-appearance: none !important;
+        -moz-appearance: none !important;
+        appearance: none !important;
+    }
+    
+    .sidebar .planet-selector {
+        order: 4;
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        gap: 2px !important;
+        justify-content: center !important;
+        align-items: center !important;
+        overflow: hidden !important;
+        padding: 2px 0 !important;
+        width: 100% !important;
+        height: 60px !important; /* Fixed height */
+        max-height: 60px !important;
+    }
+    
+    .sidebar .planet-selector .draggable {
+        width: calc((100% - 22px) / 12) !important; /* All 12 planets in one row */
+        height: 25px !important;
+        min-width: 20px !important;
+        max-width: 28px !important;
+        min-height: 25px !important;
+        flex-shrink: 0 !important;
+        opacity: 0.9 !important;
+        cursor: grab !important;
+        margin: 0 !important;
+        object-fit: contain !important;
+    }
+    
+    .sidebar .planet-selector .draggable:active {
+        transform: scale(1.05) !important;
+        opacity: 1 !important;
+    }
+    
+    .dragged-planet {
+        width: 25px !important;
+        height: 25px !important;
+    }
+    
+    /* Compact button layout for mobile */
+    .clear-all-btn, .export-image-btn, .toggle-notes-btn {
+        width: 50px !important;
+        height: 30px !important;
+        font-size: 11px !important;
+        padding: 2px !important;
+    }
+    
+    .clear-all-btn {
+        top: 5px !important;
+        right: 5px !important;
+    }
+    
+    .toggle-notes-btn {
+        top: 40px !important;
+        right: 5px !important;
+    }
+    
+    .export-image-btn {
+        top: 75px !important;
+        right: 5px !important;
+    }
+    
+    .notes-container {
+        width: 220px !important;
+        max-width: 85vw !important;
+    }
+    
+    #notesArea {
+        height: 80px !important;
+        font-size: 11px !important;
+    }
+    
+    .app-title {
+        font-size: 18px !important;
+        top: 8px !important;
+        font-weight: bold !important;
+        -webkit-text-stroke: 0.5px white !important;
+        text-stroke: 0.5px white !important;
+    }
+    
+    .footer-credit {
+        font-size: 10px !important;
+        bottom: 8px !important;
+        color: #666666 !important;
+    }
+    
+    .button-container {
+        position: fixed !important;
+        top: 110px !important;
+        right: 5px !important;
+        bottom: auto !important;
+        z-index: 1000 !important;
+        gap: 5px !important;
+    }
+    
+    .kofi-button {
+        display: flex !important;
+        align-items: center !important;
+    }
+    
+    .kofi-button img {
+        height: 25px !important;
+        width: auto !important;
+    }
 }
 
 /* Prevent default touch behaviors and drag artifacts */
