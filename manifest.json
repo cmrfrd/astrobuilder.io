@@ -1,0 +1,18 @@
+{
+  "name": "Astro Builder",
+  "short_name": "AstroBuilder",
+  "description": "Build and customize your own astrology charts with drag-and-drop planets and zodiac backgrounds",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./favicons/AstroBuilder.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+} 
