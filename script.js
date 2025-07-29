@@ -71,8 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
         draggedElement.style.pointerEvents = 'none';
         draggedElement.style.zIndex = '9999';
         draggedElement.style.opacity = '0.8';
-        draggedElement.style.width = '50px';
-        draggedElement.style.height = '50px';
+        draggedElement.style.width = '42px';
+        draggedElement.style.height = '42px';
         document.body.appendChild(draggedElement);
 
         const coords = getEventCoordinates(e);
@@ -90,8 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateDraggedElementPosition(x, y) {
         if (draggedElement) {
-            draggedElement.style.left = (x - 25) + 'px';
-            draggedElement.style.top = (y - 25) + 'px';
+            draggedElement.style.left = (x - 21) + 'px';
+            draggedElement.style.top = (y - 21) + 'px';
         }
     }
 
@@ -138,8 +138,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Position it relative to the container
             const rect = planetContainer.getBoundingClientRect();
-            const x = coords.x - rect.left - 25;
-            const y = coords.y - rect.top - 25;
+            const x = coords.x - rect.left - 21;
+            const y = coords.y - rect.top - 21;
             
             newPlanet.style.left = `${x}px`;
             newPlanet.style.top = `${y}px`;
@@ -212,8 +212,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Position it where the mouse was dropped
             const rect = planetContainer.getBoundingClientRect();
-            const x = e.clientX - rect.left - 25; // Use fixed offset for initial placement
-            const y = e.clientY - rect.top - 25;
+            const x = e.clientX - rect.left - 21; // Use fixed offset for initial placement
+            const y = e.clientY - rect.top - 21;
             
             newPlanet.style.left = `${x}px`;
             newPlanet.style.top = `${y}px`;
