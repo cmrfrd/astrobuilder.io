@@ -160,7 +160,7 @@ body {
     height: 50px; /* Increased from 42px for better visibility */
     cursor: grab;
     opacity: 0.85;
-    transition: all 0.2s ease;
+    transition: opacity 0.2s ease, background-color 0.2s ease; /* Only transition non-drag properties */
     object-fit: contain;
     border-radius: 4px;
     background-color: rgba(255, 255, 255, 0.05);
@@ -172,6 +172,18 @@ body {
     opacity: 1;
     transform: scale(1.05);
     background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Disable all transitions during drag operations */
+.dragging, .dragging * {
+    transition: none !important;
+    pointer-events: none !important;
+}
+
+/* Override hover effects during drag */
+.dragging.draggable:hover {
+    transform: none !important;
+    opacity: 0.8 !important;
 }
 
 .main-content {
@@ -270,7 +282,7 @@ body {
 .dragged-planet {
     position: absolute;
     cursor: move;
-    transition: transform 0.2s;
+    transition: none; /* Remove transform transition to prevent drag lag */
     width: 50px; /* Match increased desktop planet size */
     height: 50px;
     object-fit: contain;
@@ -282,7 +294,8 @@ body {
         width: 100vw;
         height: 100vh;
         min-height: 350px; /* Reduced minimum for more compact mobile layout */
-        overflow: hidden; /* Prevent scrolling */
+        overflow-y: auto !important; /* Allow vertical scrolling */
+        overflow-x: hidden !important; /* Prevent horizontal scrolling */
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -307,7 +320,7 @@ body {
         order: 1;
         flex: 0 0 auto; /* Use content size */
         width: 100%;
-        height: 75vh !important; /* Chart takes 75% of viewport */
+        height: 65vh !important; /* Reduced from 75vh to leave more room for planets */
         margin-bottom: 0;
         overflow: hidden;
         margin-left: 0;
@@ -321,21 +334,21 @@ body {
         min-width: 100% !important;
         max-width: 100% !important;
         height: auto !important; /* Let it size based on content */
-        min-height: 120px !important; /* Increased to accommodate bigger planets */
-        max-height: 150px !important; /* Maximum to prevent it from getting too large */
+        min-height: 120px !important; /* Minimum space for planets */
+        max-height: none !important; /* Remove height restriction - allow full expansion */
         order: 2;
-        padding: 3px !important;
+        padding: 5px !important; /* Slightly more padding for better spacing */
         background: white;
         border-radius: 8px;
         backdrop-filter: blur(10px);
         flex-shrink: 0;
-        overflow: hidden !important;
+        overflow-y: auto !important; /* Allow vertical scrolling within sidebar */
+        overflow-x: hidden !important; /* Prevent horizontal overflow */
         display: flex !important;
         flex-direction: column !important;
-        gap: 1px !important;
+        gap: 2px !important; /* Slightly more gap for better readability */
         box-sizing: border-box;
         margin-top: 0 !important;
-        /* Back to normal positioning */
         position: relative !important;
     }
     
@@ -383,16 +396,57 @@ body {
         display: flex !important;
         flex-direction: row !important;
         flex-wrap: wrap !important;
-        gap: 3px !important; /* Slightly larger gap for bigger planets */
+        gap: 4px !important; /* Increased gap for better spacing */
         justify-content: center !important;
-        align-items: center !important;
-        overflow: hidden !important;
-        padding: 2px !important;
+        align-items: flex-start !important; /* Align to top for better wrapping */
+        overflow-y: auto !important; /* Allow vertical scrolling if planets overflow */
+        overflow-x: hidden !important; /* Prevent horizontal overflow */
+        padding: 4px !important; /* More padding for better touch targets */
         width: 100% !important;
         height: auto !important; /* Let it grow to fit multiple rows */
-        max-height: none !important; /* Remove height restriction */
+        max-height: 250px !important; /* Set a reasonable max but allow scrolling */
         flex: 1 !important; /* Take available space */
-        min-height: 60px !important; /* Ensure minimum space for planets */
+        min-height: 80px !important; /* Ensure minimum space for planets */
+        /* Add scrollbar styling for mobile */
+        -webkit-overflow-scrolling: touch !important; /* Smooth scrolling on iOS */
+    }
+    
+    /* Style scrollbars for mobile planet selector */
+    .sidebar .planet-selector::-webkit-scrollbar {
+        width: 4px !important;
+    }
+    
+    .sidebar .planet-selector::-webkit-scrollbar-track {
+        background: rgba(0,0,0,0.1) !important;
+        border-radius: 2px !important;
+    }
+    
+    .sidebar .planet-selector::-webkit-scrollbar-thumb {
+        background: rgba(0,0,0,0.3) !important;
+        border-radius: 2px !important;
+    }
+    
+    .sidebar .planet-selector::-webkit-scrollbar-thumb:hover {
+        background: rgba(0,0,0,0.5) !important;
+    }
+    
+    /* Style scrollbars for main sidebar */
+    .sidebar::-webkit-scrollbar {
+        width: 4px !important;
+    }
+    
+    .sidebar::-webkit-scrollbar-track {
+        background: rgba(0,0,0,0.1) !important;
+        border-radius: 2px !important;
+    }
+    
+    .sidebar::-webkit-scrollbar-thumb {
+        background: rgba(0,0,0,0.3) !important;
+        border-radius: 2px !important;
+    }
+    
+    .sidebar::-webkit-scrollbar-thumb:hover {
+        background: rgba(0,0,0,0.5) !important;
     }
     
     .sidebar .planet-selector .draggable {

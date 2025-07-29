@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Create a dragged element that follows the cursor/finger
         draggedElement = planet.cloneNode(true);
+        draggedElement.className += ' dragging'; // Add dragging class to disable transitions
         draggedElement.style.position = 'fixed';
         draggedElement.style.pointerEvents = 'none';
         draggedElement.style.zIndex = '9999';
